@@ -1,5 +1,6 @@
 package app.sbrecipeapp.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,6 +27,8 @@ public class Recipe {
 	private String description;
 	private String source;
 	private String url;
+
+	@Lob
 	private String directions;
 
 	private Integer prepTime;
@@ -36,7 +39,7 @@ public class Recipe {
 	private Difficulty difficulty;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-	private Set<Ingredient> ingredients;//'recipe' property mentioned
+	private Set<Ingredient> ingredients = new HashSet<>();//'recipe' property mentioned
 	//in the annotation is the same Property of 'Ingredient' class
 	
 	@Lob
@@ -49,7 +52,7 @@ public class Recipe {
 	@JoinTable(name = "recipe_category",
 	joinColumns = @JoinColumn(name = "recipe_id"),
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
-	private Set<Category> categories;//here, "recipe_category" is the table name, "recipe_id" is the column name
+	private Set<Category> categories = new HashSet<>();//here, "recipe_category" is the table name, "recipe_id" is the column name
 	//provided by Recipe entity. "category_id" is the column name will be provided by the Category entity.
 
 	public Long getId() {
