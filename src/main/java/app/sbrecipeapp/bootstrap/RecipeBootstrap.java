@@ -6,9 +6,12 @@ import org.springframework.stereotype.Component;
 
 import app.sbrecipeapp.domain.*;
 import app.sbrecipeapp.repositories.*;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 import java.math.BigDecimal;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
@@ -26,7 +29,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        recipeRepository.saveAll(getRecipes());        
+        recipeRepository.saveAll(getRecipes());
+        log.debug("Loading Bootstrap data");
     }
 
     private List<Recipe> getRecipes() {

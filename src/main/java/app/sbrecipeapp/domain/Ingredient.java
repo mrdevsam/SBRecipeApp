@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class Ingredient {
     
@@ -41,7 +44,7 @@ public class Ingredient {
         this.uom = uom;
         this.recipe = recipe;
     }
-
+/* 
     public Long getId() {
         return id;
     }
@@ -71,5 +74,5 @@ public class Ingredient {
     }
     public void setUom(UnitOfMeasure uom) {
         this.uom = uom;
-    } 
+    }  */
 }

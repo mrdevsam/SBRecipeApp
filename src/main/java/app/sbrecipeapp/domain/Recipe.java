@@ -17,6 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class Recipe {
 
@@ -55,7 +58,7 @@ public class Recipe {
 	private Set<Category> categories = new HashSet<>();//here, "recipe_category" is the table name, "recipe_id" is the column name
 	//provided by Recipe entity. "category_id" is the column name will be provided by the Category entity.
 
-	public Long getId() {
+/* 	public Long getId() {
 		return id;
 	}
 
@@ -129,7 +132,7 @@ public class Recipe {
 
 	public Notes getNotes() {
 		return notes;
-	}
+	} */
 
 	public void setNotes(Notes notes) {
 		this.notes = notes;
@@ -141,7 +144,8 @@ public class Recipe {
 		this.ingredients.add(ingredient);
 		return this;
 	}
-	public Set<Ingredient> getIngredients() {
+
+/* 	public Set<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
@@ -163,5 +167,5 @@ public class Recipe {
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
-	
+	 */
 }

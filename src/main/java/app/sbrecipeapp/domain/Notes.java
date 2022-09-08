@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class Notes {
 
@@ -23,7 +26,7 @@ public class Notes {
 
 	@Lob
 	private String recipeNotes;
-
+/* 
 	public Long getId() {
 		return id;
 	}
@@ -41,7 +44,6 @@ public class Notes {
 	}
 	public void setRecipeNotes(String recipeNotes) {
 		this.recipeNotes = recipeNotes;
-	}
-
+	} */
 	
 }

@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class Category {
     
@@ -20,7 +23,7 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;//here, "categories" is property name of the Recipe entity which handle other side of the relation.
 
-    public Long getId() {
+/*     public Long getId() {
         return id;
     }
 
@@ -42,5 +45,5 @@ public class Category {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
-    }
+    } */
 }
