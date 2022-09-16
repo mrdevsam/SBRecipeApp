@@ -127,6 +127,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
         
         guacRecipe.setNotes(guacNotes);
+        guacRecipe.setCookTime(30);
+        guacRecipe.setServings(8);
+        guacRecipe.setSource("http://www.simplyrecipes.com");
+        guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole");
 
         //very redundent - could add helper method and make this esier
         guacRecipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), eachUom));
@@ -175,6 +179,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
 
         tacosRecipe.setNotes(tacoNotes);
+        tacosRecipe.setCookTime(40);
+        tacosRecipe.setServings(10);
+        tacosRecipe.setSource("http://www.simplyrecipes.com");
+        tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos");
 
 
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tableSpoonUom));
