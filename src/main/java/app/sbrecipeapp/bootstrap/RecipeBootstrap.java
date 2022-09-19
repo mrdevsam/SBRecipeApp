@@ -102,7 +102,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         Recipe guacRecipe = new Recipe();
         guacRecipe.setDescription("Perfect Guacamole");
         guacRecipe.setPrepTime(10);
-        guacRecipe.setCookTime(0);
         guacRecipe.setDifficulty(Difficulty.EASY);
         guacRecipe.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
@@ -128,7 +127,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         
         guacRecipe.setNotes(guacNotes);
         guacRecipe.setCookTime(30);
-        guacRecipe.setServings(8);
+        guacRecipe.setServings(2);
         guacRecipe.setSource("http://www.simplyrecipes.com");
         guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole");
 
@@ -151,7 +150,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         //Yummy Tacos
         Recipe tacosRecipe = new Recipe();
         tacosRecipe.setDescription("Spicy Grilled Chicken Taco");
-        tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
 
@@ -180,7 +178,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         tacosRecipe.setNotes(tacoNotes);
         tacosRecipe.setCookTime(40);
-        tacosRecipe.setServings(10);
+        tacosRecipe.setServings(4);
         tacosRecipe.setSource("http://www.simplyrecipes.com");
         tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos");
 

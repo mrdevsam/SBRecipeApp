@@ -1,11 +1,15 @@
 package app.sbrecipeapp.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import app.sbrecipeapp.converters.RecipeCommandToRecipe;
+import app.sbrecipeapp.converters.RecipeToRecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.repositories.RecipeRepository;
 
@@ -23,12 +29,33 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository repository;//declaring the repository as a Mock
 
+    @Mock
+    RecipeCommandToRecipe rCommandToRecipe;
+
+    @Mock
+    RecipeToRecipeCommand rToRecipeCommand;
+
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);//initializing Mokito Mock
 
-        rServiceImpl = new RecipeServiceImpl(repository);
+        rServiceImpl = new RecipeServiceImpl(repository, rCommandToRecipe, rToRecipeCommand);
     } 
+
+    @Test
+    void testGetRecipeById() throws Exception{
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> rOptional = Optional.of(recipe);
+
+        when(repository.findById(anyLong())).thenReturn(rOptional);
+
+        Recipe recipeReturned = rServiceImpl.findById(1L);
+
+        assertNotNull(recipeReturned, "null recipe returned");
+        verify(repository,times(1)).findById(anyLong());
+        verify(repository,never()).findAll();//verifing
+    }
 
     @Test
     void testGetRecipes() throws Exception{
@@ -41,7 +68,8 @@ public class RecipeServiceImplTest {
         Set<Recipe> recipes = rServiceImpl.getRecipes();
 
         assertEquals(recipes.size(), 1);
-        verify(repository,times(1)).findAll();//verifing
+        verify(repository,times(1)).findAll();
+        verify(repository,never()).findById(anyLong());//verifing
     }
 }
     
