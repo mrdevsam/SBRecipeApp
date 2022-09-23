@@ -2,6 +2,7 @@ package app.sbrecipeapp.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.converters.RecipeCommandToRecipe;
 import app.sbrecipeapp.converters.RecipeToRecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
@@ -70,6 +72,26 @@ public class RecipeServiceImplTest {
         assertEquals(recipes.size(), 1);
         verify(repository,times(1)).findAll();
         verify(repository,never()).findById(anyLong());//verifing
+    }
+
+    @Test
+    public void getRecipeCoomandByIdTest() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(repository.findById(anyLong())).thenReturn(recipeOptional);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(rToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand commandById = rServiceImpl.findCommandById(1L);
+
+        assertNotNull( commandById, "Null recipe returned");
+        verify(repository, times(1)).findById(anyLong());
+        verify(repository, never()).findAll();
     }
 }
     

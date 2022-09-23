@@ -13,7 +13,6 @@ import app.sbrecipeapp.commands.IngredientCommand;
 import app.sbrecipeapp.commands.UnitOfMeasureCommand;
 import app.sbrecipeapp.domain.Ingredient;
 import app.sbrecipeapp.domain.Recipe;
-import app.sbrecipeapp.domain.UnitOfMeasure;
 
 public class IngredientCommandToIngredientTest {
     
@@ -49,7 +48,7 @@ public class IngredientCommandToIngredientTest {
         command.setDescription(DESCRIPTION);
         UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
         unitOfMeasureCommand.setId(UOM_ID);
-        command.setUnitOfMeasure(unitOfMeasureCommand);
+        command.setUom(unitOfMeasureCommand);
 
         //when
         Ingredient ingredient = converter.convert(command);
@@ -71,8 +70,6 @@ public class IngredientCommandToIngredientTest {
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
         UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
-
-
         //when
         Ingredient ingredient = converter.convert(command);
 
