@@ -75,7 +75,7 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipeCoomandByIdTest() throws Exception {
+    public void getRecipeCommandByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -93,5 +93,20 @@ public class RecipeServiceImplTest {
         verify(repository, times(1)).findById(anyLong());
         verify(repository, never()).findAll();
     }
+
+    @Test
+    void testDeleteById() throws Exception{
+        //given
+        Long idToDelete = Long.valueOf(2L);
+
+        //when
+        rServiceImpl.deleteById(idToDelete);
+
+        //no 'when' statement since method has void return type
+
+        //then
+        verify(repository, times(1)).deleteById(anyLong());
+    }
+    
 }
     
