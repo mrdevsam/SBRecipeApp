@@ -86,7 +86,7 @@
                             <legend>Ingredients: </legend>
                         </div>
                         <div class="col">
-                            <a class="btn btn-dark" href="#" role="button">Edit</a>
+                            <a class="btn btn-dark" href="#" role="button">View</a>
                         </div>
                     </div>
                     <div class="row block">
@@ -96,7 +96,7 @@
                                 <li th:remove="all">1 TTeaspoo of chocolate</li>
                                 <li th:each="ingredient : ${recipe.ingredients}" th:text="${(ingredient.getAmount() +
                                                                 ' ' + ingredient.uom.getDescription() +
-                                                                ' - ' + ingredient.getDescription())}">1 Teaspoon of
+                                                                ' --> ' + ingredient.getDescription())}">1 Teaspoon of
                                     Sugar
                                 </li>
                             </ul>
