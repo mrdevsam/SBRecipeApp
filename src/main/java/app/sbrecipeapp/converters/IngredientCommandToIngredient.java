@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 
 import app.sbrecipeapp.commands.IngredientCommand;
 import app.sbrecipeapp.domain.Ingredient;
+import app.sbrecipeapp.domain.Recipe;
 
 @Component
-public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient>{
+public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient> {
 
     private final UnitOfMeasureCommandToUnitOfMeasure uomConverter;
 
@@ -22,13 +23,20 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         if (source == null) {
             return null;
         }
-        
+
         final Ingredient ingredient = new Ingredient();
         ingredient.setId(source.getId());
+
+        if (source.getRecipeId() != null) {
+            Recipe recipe = new Recipe();
+            recipe.setId(source.getRecipeId());
+            ingredient.setRecipe(recipe);
+            recipe.addIngredient(ingredient);
+        }
+
         ingredient.setDescription(source.getDescription());
         ingredient.setAmount(source.getAmount());
         ingredient.setUom(uomConverter.convert(source.getUom()));
         return ingredient;
     }
-    
 }
