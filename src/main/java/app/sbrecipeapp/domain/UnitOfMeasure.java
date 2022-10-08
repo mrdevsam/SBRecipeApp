@@ -7,6 +7,11 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
+// import lombok.Setter;
+// import lombok.Getter;
+
+// @Getter
+// @Setter
 @Data
 @Entity
 public class UnitOfMeasure {

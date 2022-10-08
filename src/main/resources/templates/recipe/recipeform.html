@@ -86,7 +86,7 @@
                             <legend>Ingredients: </legend>
                         </div>
                         <div class="col">
-                            <a class="btn btn-dark" href="#" role="button">View</a>
+                            <a class="btn btn-dark" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                         </div>
                     </div>
                     <div class="row block">

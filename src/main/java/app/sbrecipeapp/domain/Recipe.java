@@ -18,7 +18,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
+// import lombok.Getter;
+// import lombok.Setter;
 
+//@Getter
+//@Setter
 @Data
 @Entity
 public class Recipe {
@@ -59,8 +63,11 @@ public class Recipe {
 	//provided by Recipe entity. "category_id" is the column name will be provided by the Category entity.
 
 	public void setNotes(Notes notes) {
-		this.notes = notes;
-		notes.setRecipe(this);
+
+		if (notes != null) {
+			this.notes = notes;
+			notes.setRecipe(this);
+		}
 	}
 
 	public Recipe addIngredient(Ingredient ingredient) {
