@@ -18,7 +18,16 @@
 <body class="container">
 
     <div class="border">
-        <h1 th:text="${recipe.description}" class="p-4">Recipe Description Here!</h1>
+        <div class="row">
+            <div class="col">
+                <h3 th:text="${recipe.description}">Recipe Description Here!</h3>
+            </div>
+
+            <div class="col">
+                <a class="btn btn-primary" href="#"
+                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+            </div>
+        </div>
     </div>
     <div class="border">
         <div class="row">
@@ -31,6 +40,12 @@
                     <li th:remove="all">cat two</li>
                     <li th:each="category : ${recipe.categories}" th:text="${category.getDescription()}">cat three</li>
                 </ul>
+            </div>
+
+            <div class="col-md-6">
+                <img src="../../static/images/guacamole400x400WithX.jpg"
+                     th:src="@{/images/guacamole400x400WithX.jpg}"
+                     width="200" height="200">
             </div>
         </div>
     </div>
