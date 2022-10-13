@@ -24,6 +24,8 @@ public class RecipeCommand {
     private Integer cookTime;
     private Integer servings;
 
+    private Byte[] image;
+    
     private Set<IngredientCommand> ingredients = new HashSet<>();
     private Set<CategoryCommand> categories = new HashSet<>();
 
