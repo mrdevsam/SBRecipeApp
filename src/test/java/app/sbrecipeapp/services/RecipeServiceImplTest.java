@@ -2,6 +2,7 @@ package app.sbrecipeapp.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
@@ -22,6 +23,7 @@ import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.converters.RecipeCommandToRecipe;
 import app.sbrecipeapp.converters.RecipeToRecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
+import app.sbrecipeapp.exceptions.NotFoundException;
 import app.sbrecipeapp.repositories.RecipeRepository;
 
 public class RecipeServiceImplTest {
@@ -108,5 +110,13 @@ public class RecipeServiceImplTest {
         verify(repository, times(1)).deleteById(anyLong());
     }
     
+    @Test()
+    void testGetRecipeByIdNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(repository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Exception exceptionMsg = assertThrows(NotFoundException.class, () -> {rServiceImpl.findById(1L);});
+        System.out.println(exceptionMsg.getMessage());
+    }
 }
     
