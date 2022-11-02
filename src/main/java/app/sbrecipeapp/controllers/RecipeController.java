@@ -3,6 +3,8 @@ package app.sbrecipeapp.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class RecipeController {
     
+    private static final String RECIPE_RECIPRFORM_URL = "recipe/recipeform";
     private final RecipeService rService;
 
     public RecipeController(RecipeService rService) {
@@ -35,17 +38,26 @@ public class RecipeController {
     @GetMapping("recipe/new")
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/recipeform";
+        return RECIPE_RECIPRFORM_URL;
     }
 
     @GetMapping({"recipe/{id}/update"})
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", rService.findCommandById(Long.parseLong(id)));
-        return "recipe/recipeform";
+        return RECIPE_RECIPRFORM_URL;
     }
 
     @PostMapping("recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdate(@Validated @ModelAttribute("recipe") RecipeCommand command, BindingResult result) {
+
+        if (result.hasErrors()) {
+            result.getAllErrors().forEach(objError -> {
+                log.debug(objError.toString());
+            });
+
+            return RECIPE_RECIPRFORM_URL;
+        }
+
         RecipeCommand savedCommand = rService.saveRecipeCommand(command);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }

@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import app.sbrecipeapp.commands.UnitOfMeasureCommand;
 import app.sbrecipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import app.sbrecipeapp.repositories.UnitOfMeasureRepository;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 

@@ -20,6 +20,20 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.0.Final</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
+		
+		<dependency>
 			<groupId>org.webjars.npm</groupId>
 			<artifactId>jquery</artifactId>
 			<version>3.6.1</version>
