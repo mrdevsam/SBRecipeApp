@@ -1,5 +1,7 @@
 package app.sbrecipeapp.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.exceptions.NotFoundException;
 import app.sbrecipeapp.services.RecipeService;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
