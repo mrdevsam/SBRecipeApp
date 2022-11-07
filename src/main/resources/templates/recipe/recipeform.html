@@ -30,7 +30,7 @@
                     <input type="hidden" th:field="*{id}">
                     <div class="row block">
                         <div class="col" th:class="${#fields.hasErrors('description')} ? 'col has-error' : 'col'">
-                            <label>Recipe Description: </label>
+                            <label th:text="#{recipe.description}">Recipe Description: </label>
                             <input type="text" class="form-control" th:field="*{description}" th:errorclass="has-error">
                             <span class="help-block" th:if="${#fields.hasErrors('description')}">
                                 <ul>
