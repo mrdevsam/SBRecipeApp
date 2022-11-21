@@ -35,7 +35,7 @@ public class IngredientController {
         log.debug("Getting ingredient for recipeId: " + recipeId);
 
         // use command object to avoid lazy load errors in Thymeleaf
-        model.addAttribute("recipe", rService.findCommandById(Long.valueOf(recipeId)));
+        model.addAttribute("recipe", rService.findCommandById(String.valueOf(recipeId)));
         return "recipe/ingredient/list";
     }
 
@@ -43,7 +43,7 @@ public class IngredientController {
     public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
 
         model.addAttribute("ingredient",
-                iService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+                iService.findByRecipeIdAndIngredientId(String.valueOf(recipeId), String.valueOf(id)));
 
         return "recipe/ingredient/show";
     }
@@ -52,7 +52,7 @@ public class IngredientController {
     public String updateRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
 
         model.addAttribute("ingredient",
-                iService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+                iService.findByRecipeIdAndIngredientId(String.valueOf(recipeId), String.valueOf(id)));
         model.addAttribute("uomList", uService.listAllUoms());
 
         return "recipe/ingredient/ingredientForm";
@@ -63,7 +63,7 @@ public class IngredientController {
 
         IngredientCommand savedCommand = iService.saveIngredientCommand(ingredientCommand);
 
-        log.debug("saved receipe id:" + savedCommand.getRecipeId());
+        //log.debug("saved receipe id:" + savedCommand.getRecipeId());
         log.debug("saved ingredient id:" + savedCommand.getId());
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
@@ -73,13 +73,13 @@ public class IngredientController {
     public String newIngredient(@PathVariable String recipeId, Model model) {
 
         //make sure we have a good id value
-        RecipeCommand recipeCommand = rService.findCommandById(Long.valueOf(recipeId));
+        RecipeCommand recipeCommand = rService.findCommandById(String.valueOf(recipeId));
         // TODO raise exception if null
 
         //need to return back parent id for hidden form property
         IngredientCommand ingredientCommand = new IngredientCommand();
 
-        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        //ingredientCommand.setRecipeId(String.valueOf(recipeId));
         model.addAttribute("ingredient", ingredientCommand);
 
         //init uom
@@ -94,7 +94,7 @@ public class IngredientController {
 
         log.debug("deleting ingredient id: " + id);
 
-        iService.deleteById(Long.valueOf(recipeId), Long.valueOf(id));
+        iService.deleteById(String.valueOf(recipeId), String.valueOf(id));
 
         return "redirect:/recipe/" + recipeId + "/ingredients";
     }

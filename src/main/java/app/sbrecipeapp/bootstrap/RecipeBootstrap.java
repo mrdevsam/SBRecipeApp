@@ -3,6 +3,7 @@ package app.sbrecipeapp.bootstrap;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import app.sbrecipeapp.domain.*;
 import app.sbrecipeapp.repositories.*;
@@ -28,11 +29,54 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        loadCategories();
+        loadUom();
         recipeRepository.saveAll(getRecipes());
         log.debug("Loading Bootstrap data");
     }
 
+    private void loadCategories() {
+        Category cat1 = new Category();
+        cat1.setDescription("American");
+        categoryRepository.save(cat1);
+
+        Category cat2 = new Category();
+        cat2.setDescription("Mexican");
+        categoryRepository.save(cat2);
+
+        Category cat3 = new Category();
+        cat3.setDescription("Italian");
+        categoryRepository.save(cat3);
+    }
+
+    private void loadUom() {
+        UnitOfMeasure um1 = new UnitOfMeasure();
+        um1.setDescription("Each");
+        unitOfMeasureRepository.save(um1);
+
+        UnitOfMeasure um2 = new UnitOfMeasure();
+        um2.setDescription("Tablespoon");
+        unitOfMeasureRepository.save(um2);
+
+        UnitOfMeasure um3 = new UnitOfMeasure();
+        um3.setDescription("Teaspoon");
+        unitOfMeasureRepository.save(um3);
+
+        UnitOfMeasure um4 = new UnitOfMeasure();
+        um4.setDescription("Dash");
+        unitOfMeasureRepository.save(um4);
+
+        UnitOfMeasure um5 = new UnitOfMeasure();
+        um5.setDescription("Pint");
+        unitOfMeasureRepository.save(um5);
+
+        UnitOfMeasure um6 = new UnitOfMeasure();
+        um6.setDescription("Cup");
+        unitOfMeasureRepository.save(um6);
+
+    }
     private List<Recipe> getRecipes() {
 
         List<Recipe> recipes = new ArrayList<>(2);

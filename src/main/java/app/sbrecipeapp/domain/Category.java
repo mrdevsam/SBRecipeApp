@@ -2,31 +2,24 @@ package app.sbrecipeapp.domain;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.EqualsAndHashCode;
-//import lombok.Getter;
-//import lombok.Setter;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-//@Getter
-//@Setter
-@Data
-@EqualsAndHashCode(exclude = "recipes")
-@Entity
+@Getter
+@Setter
+@Document
 public class Category {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String description;
     
-    @ManyToMany(mappedBy = "categories")
+    @DBRef
     private Set<Recipe> recipes;//here, "categories" is property name of the Recipe entity which handle other side of the relation.
 
 }

@@ -33,7 +33,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+    public IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
@@ -89,7 +89,7 @@ public class IngredientServiceImpl implements IngredientService {
 
                 // add new ingredient
                 Ingredient ingredientz = ingredientCommandToIngredient.convert(ingredientCommand);
-                ingredientz.setRecipe(recipe);
+                //ingredientz.setRecipe(recipe);
                 recipe.addIngredient(ingredientz);
 
             }
@@ -117,7 +117,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void deleteById(Long recipeId, Long idToDelete) {
+    public void deleteById(String recipeId, String idToDelete) {
         
         log.debug("Deleting ingredient: " + recipeId + ": " + idToDelete);
 
@@ -133,7 +133,7 @@ public class IngredientServiceImpl implements IngredientService {
                 log.debug("ingredient found.");
 
                 Ingredient ingredientToDelete = ingredientOptional.get();
-                ingredientToDelete.setRecipe(null);
+                //ingredientToDelete.setRecipe(null);
                 recipeFound.getIngredients().remove(ingredientOptional.get());
 
                 recipeRepository.save(recipeFound);

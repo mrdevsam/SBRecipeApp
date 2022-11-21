@@ -1,5 +1,6 @@
 package app.sbrecipeapp.repositories;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
+@Disabled
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class UnitOfMeasureRepositoryIT {

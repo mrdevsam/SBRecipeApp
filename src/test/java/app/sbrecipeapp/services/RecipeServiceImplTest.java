@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -49,15 +49,15 @@ public class RecipeServiceImplTest {
     @Test
     void testGetRecipeById() throws Exception{
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
         Optional<Recipe> rOptional = Optional.of(recipe);
 
-        when(repository.findById(anyLong())).thenReturn(rOptional);
+        when(repository.findById(anyString())).thenReturn(rOptional);
 
-        Recipe recipeReturned = rServiceImpl.findById(1L);
+        Recipe recipeReturned = rServiceImpl.findById("1");
 
         assertNotNull(recipeReturned, "null recipe returned");
-        verify(repository,times(1)).findById(anyLong());
+        verify(repository,times(1)).findById(anyString());
         verify(repository,never()).findAll();//verifing
     }
 
@@ -73,33 +73,33 @@ public class RecipeServiceImplTest {
 
         assertEquals(recipes.size(), 1);
         verify(repository,times(1)).findAll();
-        verify(repository,never()).findById(anyLong());//verifing
+        verify(repository,never()).findById(anyString());//verifing
     }
 
     @Test
     public void getRecipeCommandByIdTest() throws Exception {
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(repository.findById(anyLong())).thenReturn(recipeOptional);
+        when(repository.findById(anyString())).thenReturn(recipeOptional);
 
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(1L);
+        recipeCommand.setId("1");
 
         when(rToRecipeCommand.convert(any())).thenReturn(recipeCommand);
 
-        RecipeCommand commandById = rServiceImpl.findCommandById(1L);
+        RecipeCommand commandById = rServiceImpl.findCommandById("1");
 
         assertNotNull( commandById, "Null recipe returned");
-        verify(repository, times(1)).findById(anyLong());
+        verify(repository, times(1)).findById(anyString());
         verify(repository, never()).findAll();
     }
 
     @Test
     void testDeleteById() throws Exception{
         //given
-        Long idToDelete = Long.valueOf(2L);
+        String idToDelete = String.valueOf(2L);
 
         //when
         rServiceImpl.deleteById(idToDelete);
@@ -107,15 +107,15 @@ public class RecipeServiceImplTest {
         //no 'when' statement since method has void return type
 
         //then
-        verify(repository, times(1)).deleteById(anyLong());
+        verify(repository, times(1)).deleteById(anyString());
     }
     
     @Test()
     void testGetRecipeByIdNotFound() throws Exception {
         Optional<Recipe> recipeOptional = Optional.empty();
-        when(repository.findById(anyLong())).thenReturn(recipeOptional);
+        when(repository.findById(anyString())).thenReturn(recipeOptional);
 
-        Exception exceptionMsg = assertThrows(NotFoundException.class, () -> {rServiceImpl.findById(1L);});
+        Exception exceptionMsg = assertThrows(NotFoundException.class, () -> {rServiceImpl.findById("1");});
         System.out.println(exceptionMsg.getMessage());
     }
 }

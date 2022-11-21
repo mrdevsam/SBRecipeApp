@@ -56,7 +56,7 @@ public class IndexControllerTest {
         Set<Recipe> recipes = new HashSet<>();
         recipes.add(new Recipe());
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId(String.valueOf("1"));
         recipes.add(recipe);
 
         when(rService.getRecipes()).thenReturn(recipes);

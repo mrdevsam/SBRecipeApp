@@ -12,7 +12,7 @@ import app.sbrecipeapp.domain.Category;
 
 public class CategoryCommandToCategoryTest {
 
-    public static final Long ID_VALUE = new Long(1L);
+    public static final String ID_VALUE = new String("1");
     public static final String DESCRIPTION = "description";
     CategoryCommandToCategory converter;
 

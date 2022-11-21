@@ -2,6 +2,7 @@ package app.sbrecipeapp.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import app.sbrecipeapp.converters.RecipeToRecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.repositories.RecipeRepository;
 
+@Disabled
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RecipeServiceImplIT {
