@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
 import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.converters.RecipeCommandToRecipe;
@@ -16,7 +15,7 @@ import app.sbrecipeapp.converters.RecipeToRecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.repositories.RecipeRepository;
 
-//@Disabled
+@Disabled
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RecipeServiceImplIT {

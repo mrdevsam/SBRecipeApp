@@ -112,14 +112,6 @@ public class RecipeControllerTest {
         .andExpect(view().name("404error"));
     }
 
-    @Test
-    void testGetRecipeNotFoundOnNumberFormat() throws Exception{
-        when(rService.findById(anyString())).thenThrow(NotFoundException.class);
-
-        mockMvc.perform(get("/recipe/addfs/show"))
-        .andExpect(status().isBadRequest())
-        .andExpect(view().name("400error"));
-    }
 
     @Test
     void testPostNewRecipeFormFail() throws Exception{
