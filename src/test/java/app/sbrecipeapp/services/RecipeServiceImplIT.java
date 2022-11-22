@@ -16,7 +16,7 @@ import app.sbrecipeapp.converters.RecipeToRecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.repositories.RecipeRepository;
 
-@Disabled
+//@Disabled
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RecipeServiceImplIT {
@@ -36,7 +36,7 @@ public class RecipeServiceImplIT {
     RecipeToRecipeCommand recipeToRecipeCommand;
 
 
-    @Transactional
+    //@Transactional
     @Test
     void testSaveOfDescription() throws Exception{
         //given

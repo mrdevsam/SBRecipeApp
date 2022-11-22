@@ -54,11 +54,13 @@ public class IngredientServiceImpl implements IngredientService {
             log.error("ingredient id not found. ingredientId: " + ingredientId);
         }
 
+        IngredientCommand ingredientCommand = ingredientCommandOptional.get();
+        ingredientCommand.setRecipeId(recipeId);
+
         return ingredientCommandOptional.get();
     }
 
     @Override
-    @Transactional
     public IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getRecipeId());

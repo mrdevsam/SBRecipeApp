@@ -9,7 +9,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -50,8 +52,8 @@ public class RecipeCommand {
 
     private Byte[] image;
     
-    private Set<IngredientCommand> ingredients = new HashSet<>();
-    private Set<CategoryCommand> categories = new HashSet<>();
+    private List<IngredientCommand> ingredients = new ArrayList<>();
+    private List<CategoryCommand> categories = new ArrayList<>();
 
     private NotesCommand notes;
     private Difficulty difficulty;
