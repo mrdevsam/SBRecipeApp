@@ -3,7 +3,7 @@ package app.sbrecipeapp.bootstrap;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.beans,factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.sbrecipeapp.domain.*;
@@ -36,6 +36,11 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
+    	categoryRepository.deleteAll();
+    	unitOfMeasureRepository.deleteAll();
+    	recipeRepository.deleteAll();
+    	
         loadCategories();
         loadUom();
         recipeRepository.saveAll(getRecipes());
