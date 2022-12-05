@@ -50,7 +50,7 @@ public class UnitOfMeasureServiceImplTest {
         when(repository.findAll()).thenReturn(Flux.just(uom1, uom2));
 
         //when
-        List<UnitOfMeasureCommand> commands = service.listAllUoms()collectList().block();
+        List<UnitOfMeasureCommand> commands = service.listAllUoms().collectList().block();
 
         //then
         assertEquals(2, commands.size());
