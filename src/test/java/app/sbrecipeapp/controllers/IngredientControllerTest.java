@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.util.HashSet;
+import reactor.core.publisher.Flux;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import app.sbrecipeapp.commands.IngredientCommand;
 import app.sbrecipeapp.commands.RecipeCommand;
+import app.sbrecipeapp.commands.UnitOfMeasureCommand;
 import app.sbrecipeapp.services.IngredientService;
 import app.sbrecipeapp.services.RecipeService;
 import app.sbrecipeapp.services.UnitOfMeasureService;
@@ -85,7 +86,7 @@ public class IngredientControllerTest {
 
         // when
         when(iService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
-        when(uService.listAllUoms()).thenReturn(new HashSet<>());
+        when(uService.listAllUoms()).thenReturn(Flux.just(new UnitOfMeasureCommand()));
 
         // then
         mockMvc.perform(get("/recipe/1/ingredient/2/update"))
@@ -122,7 +123,7 @@ public class IngredientControllerTest {
 
         // when
         when(rService.findCommandById(anyString())).thenReturn(recipeCommand);
-        when(uService.listAllUoms()).thenReturn(new HashSet<>());
+        when(uService.listAllUoms()).thenReturn(Flux.just(new UnitOfMeasureCommand()));
 
         // then
         mockMvc.perform(get("/recipe/1/ingredient/new"))

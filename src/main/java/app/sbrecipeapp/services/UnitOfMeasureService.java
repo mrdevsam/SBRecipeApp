@@ -1,10 +1,10 @@
 package app.sbrecipeapp.services;
 
-import java.util.Set;
+import reactor.core.publisher.Flux;
 
 import app.sbrecipeapp.commands.UnitOfMeasureCommand;
 
 public interface UnitOfMeasureService {
     
-    Set<UnitOfMeasureCommand> listAllUoms();
+    Flux<UnitOfMeasureCommand> listAllUoms();
 }

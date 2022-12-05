@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
+import reactor.core.publisher.Flux;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 import app.sbrecipeapp.commands.UnitOfMeasureCommand;
 import app.sbrecipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import app.sbrecipeapp.domain.UnitOfMeasure;
-import app.sbrecipeapp.repositories.UnitOfMeasureRepository;
+import app.sbrecipeapp.repositories.reactive.UnitOfMeasureReactiveRepository;
 
 public class UnitOfMeasureServiceImplTest {
 
@@ -24,7 +26,7 @@ public class UnitOfMeasureServiceImplTest {
     UnitOfMeasureService service;
 
     @Mock
-    UnitOfMeasureRepository repository;
+    UnitOfMeasureReactiveRepository repository;
 
     @BeforeEach
     void setUp() throws Exception{
@@ -45,10 +47,10 @@ public class UnitOfMeasureServiceImplTest {
         uom2.setId("2");
         unitOfMeasures.add(uom2);
 
-        when(repository.findAll()).thenReturn(unitOfMeasures);
+        when(repository.findAll()).thenReturn(Flux.just(uom1, uom2));
 
         //when
-        Set<UnitOfMeasureCommand> commands = service.listAllUoms();
+        List<UnitOfMeasureCommand> commands = service.listAllUoms()collectList().block();
 
         //then
         assertEquals(2, commands.size());
