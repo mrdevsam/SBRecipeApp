@@ -1,6 +1,7 @@
 package app.sbrecipeapp.repositories.reactive;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import app.sbrecipeapp.domain.Recipe;
 
+//this test will run fine, but keeping it disabled for circleci builds
+@Disabled
 @ExtendWith(SpringExtension.class)
 @DataMongoTest
 public class RecipeReactiveRepositoryTest {

@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,7 +71,7 @@ public class IngredientControllerTest {
         IngredientCommand ingredientCommand = new IngredientCommand();
 
         // when
-        when(iService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
+        when(iService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(Mono.just(ingredientCommand));
 
         // then
         mockMvc.perform(get("/recipe/1/ingredient/2/show"))
@@ -104,7 +105,7 @@ public class IngredientControllerTest {
         command.setRecipeId(String.valueOf("2"));
 
         // when
-        when(iService.saveIngredientCommand(any())).thenReturn(command);
+        when(iService.saveIngredientCommand(any())).thenReturn(Mono.just(command));
 
         // then
         mockMvc.perform(post("/recipe/2/ingredient")
@@ -137,6 +138,8 @@ public class IngredientControllerTest {
 
     @Test
     public void testDeleteIngredient() throws Exception {
+
+        when(ingredientService.deleteById(anyString(), anyString())).thenReturn(Mono.empty());
 
         // then
         mockMvc.perform(get("/recipe/2/ingredient/3/delete"))

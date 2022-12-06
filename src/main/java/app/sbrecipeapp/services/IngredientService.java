@@ -1,10 +1,11 @@
 package app.sbrecipeapp.services;
 
 import app.sbrecipeapp.commands.IngredientCommand;
+import reactor.core.publisher.Mono;
 
 public interface IngredientService {
     
-    IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
-    IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand);
-    void deleteById(String recipeId, String idToDelete);
+    Mono<IngredientCommand> findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
+    Mono<IngredientCommand> saveIngredientCommand(IngredientCommand ingredientCommand);
+    Mono<Void> deleteById(String recipeId, String idToDelete);
 }
