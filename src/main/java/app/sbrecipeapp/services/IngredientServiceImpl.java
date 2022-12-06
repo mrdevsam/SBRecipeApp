@@ -101,7 +101,7 @@ public class IngredientServiceImpl implements IngredientService {
                 // set components
                 ingredientFound.setAmount(ingredientCommand.getAmount());
                 ingredientFound.setDescription(ingredientCommand.getDescription());
-                ingredientFound.setUom(unitOfMeasureRepository.findById(ingredientCommand.getUom().getId())).block();
+                ingredientFound.setUom(unitOfMeasureReactiveRepository.findById(ingredientCommand.getUom().getId())).block();
                         //.orElseThrow(() -> new RuntimeException("UOM NOT FOUND!!!")));// todo address this
 
                 if (ingredientFound.getUom() == null) {
@@ -136,7 +136,7 @@ public class IngredientServiceImpl implements IngredientService {
 
             //todo check for fail
             //return Mono.just(ingredientToIngredientCommand.convert(savedIngredientOptional.get()));
-            IngredientCommand ingredientCommandSaved = ingredientToIngredientcommand.convert(savedIngredientOptional.get());
+            IngredientCommand ingredientCommandSaved = ingredientToIngredientCommand.convert(savedIngredientOptional.get());
             ingredientCommandSaved.setRecipeId(recipe.getId());
 
             return Mono.just(ingredientCommandSaved);
@@ -155,16 +155,16 @@ public class IngredientServiceImpl implements IngredientService {
             //Recipe recipeFound = recipeOptional.get();
             //log.debug("recipe found.");
 
-            Optional<Ingredient> ingredientOptional = recipeFound.getIngredients().stream().filter(ingredient -> ingredient.getId().equals(idToDelete)).findFirst();
+            Optional<Ingredient> ingredientOptional = recipe.getIngredients().stream().filter(ingredient -> ingredient.getId().equals(idToDelete)).findFirst();
 
             if (ingredientOptional.isPresent()) {
                 log.debug("ingredient found.");
 
                 //Ingredient ingredientToDelete = ingredientOptional.get();
                 //ingredientToDelete.setRecipe(null);
-                recipeFound.getIngredients().remove(ingredientOptional.get());
+                recipe.getIngredients().remove(ingredientOptional.get());
 
-                recipeRepository.save(recipeFound);
+                recipeRepository.save(recipe);
             }
         } else {
             log.debug("recipe id not found!!!. Id: " + recipeId);
