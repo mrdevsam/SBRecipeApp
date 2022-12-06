@@ -24,7 +24,8 @@ import app.sbrecipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import app.sbrecipeapp.domain.Ingredient;
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.repositories.RecipeRepository;
-import app.sbrecipeapp.repositories.reactive.*;
+import app.sbrecipeapp.repositories.reactive.UnitOfMeasureReactiveRepository;
+import app.sbrecipeapp.repositories.reactive.RecipeReactiveRepository;
 
 public class IngredientServiceTest {
 
@@ -39,7 +40,7 @@ public class IngredientServiceTest {
     RecipeReactiveRepository recipeReactiveRepository;
 
     @Mock
-    UnitOfMeasureReactiveRepository unitOfMeasureRepository;
+    UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
 
     //init converters
     public IngredientServiceTest() {
@@ -51,7 +52,7 @@ public class IngredientServiceTest {
     void setUp() throws Exception{
         MockitoAnnotations.openMocks(this);
 
-        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeReactiveRepository, unitOfMeasureRepository, recipeRepository);
+        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeReactiveRepository, recipeRepository, unitOfMeasureReactiveRepository);
     }
 
     @Test
