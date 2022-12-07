@@ -3,7 +3,6 @@ package app.sbrecipeapp.domain;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -18,8 +17,6 @@ public class Category {
     private String id;
 
     private String description;
-    
-    @DBRef
-    private Set<Recipe> recipes;//here, "categories" is property name of the Recipe entity which handle other side of the relation.
+    private Set<Recipe> recipes;
 
 }
