@@ -1,18 +1,19 @@
 package app.sbrecipeapp.services;
 
-import java.util.Set;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
 
 public interface RecipeService {
-    Set<Recipe> getRecipes();
+    Flux<Recipe> getRecipes();
 
-    Recipe findById(String l);
+    Mono<Recipe> findById(String l);
 
-    RecipeCommand findCommandById(String l);
+    Mono<RecipeCommand> findCommandById(String l);
     
-    RecipeCommand saveRecipeCommand(RecipeCommand rCommand);
+    Mono<RecipeCommand> saveRecipeCommand(RecipeCommand rCommand);
 
-    void deleteById(String idToDelete);
+    Mono<Void> deleteById(String idToDelete);
 }

@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.services.ImageService;
 import app.sbrecipeapp.services.RecipeService;
+import reactor.core.publisher.Mono;
 
 public class ImageControllerTest {
 
@@ -60,7 +61,7 @@ public class ImageControllerTest {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(String.valueOf("1"));
 
-        when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyString())).thenReturn(Mono.just(recipeCommand));
 
         // when
         mockMvc.perform(get("/recipe/1/image")).andExpect(status().isOk()).andExpect(model().attributeExists("recipe"));

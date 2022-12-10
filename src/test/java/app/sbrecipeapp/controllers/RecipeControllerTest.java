@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import reactor.core.publisher.Mono;
 
 import app.sbrecipeapp.commands.RecipeCommand;
 import app.sbrecipeapp.domain.Recipe;
@@ -47,7 +48,7 @@ public class RecipeControllerTest {
         Recipe recipe = new Recipe();
         recipe.setId(String.valueOf("1"));
 
-        when(rService.findById(anyString())).thenReturn(recipe);
+        when(rService.findById(anyString())).thenReturn(Mono.just(recipe));
 
         mockMvc.perform(get("/recipe/1/show")).andExpect(status().isOk()).andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
@@ -67,7 +68,7 @@ public class RecipeControllerTest {
         RecipeCommand command = new RecipeCommand();
         command.setId(String.valueOf("2"));
 
-        when(rService.saveRecipeCommand(any())).thenReturn(command);
+        when(rService.saveRecipeCommand(any())).thenReturn(Mono.just(command));
 
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -86,7 +87,7 @@ public class RecipeControllerTest {
         RecipeCommand command = new RecipeCommand();
         command.setId(String.valueOf("1"));
 
-        when(rService.findCommandById(anyString())).thenReturn(command);
+        when(rService.findCommandById(anyString())).thenReturn(Mono.just(command));
 
         mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(status().isOk())
@@ -118,7 +119,7 @@ public class RecipeControllerTest {
         RecipeCommand rCommand = new RecipeCommand();
         rCommand.setId(String.valueOf("2"));
 
-        when(rService.saveRecipeCommand(any())).thenReturn(rCommand);
+        when(rService.saveRecipeCommand(any())).thenReturn(Mono.just(rCommand));
 
         mockMvc.perform(post("/recipe")
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)

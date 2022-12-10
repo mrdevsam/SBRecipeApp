@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import reactor.core.publisher.Flux;
 
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.services.RecipeService;
@@ -44,6 +46,8 @@ public class IndexControllerTest {
     void testMockmvc() throws Exception{
         MockMvc mMvc = MockMvcBuilders.standaloneSetup(iController).build();
 
+        when(recipeService.getRecipes()).thenReturn(Flux.empty());
+
         mMvc.perform(get("/"))
         .andExpect(status().isOk())
         .andExpect(view().name("index"));
@@ -59,9 +63,9 @@ public class IndexControllerTest {
         recipe.setId(String.valueOf("1"));
         recipes.add(recipe);
 
-        when(rService.getRecipes()).thenReturn(recipes);
+        when(rService.getRecipes()).thenReturn(Flux.fromIterable(recipes));
 
-        ArgumentCaptor<Set<Recipe>> aCaptor = ArgumentCaptor.forClass(Set.class);
+        ArgumentCaptor<List<Recipe>> aCaptor = ArgumentCaptor.forClass(List.class);
 
         //when
         String iValue = iController.getIndexpage(model);
@@ -70,7 +74,7 @@ public class IndexControllerTest {
         assertEquals("index", iValue);
         verify(rService, times(1)).getRecipes();
         verify(model, times(1)).addAttribute(eq("recipes"), aCaptor.capture());
-        Set<Recipe> setInController = aCaptor.getValue();
+        List<Recipe> setInController = aCaptor.getValue();
         assertEquals(2, setInController.size());
     }
 }
