@@ -86,7 +86,7 @@ public class ImageControllerTest {
 
         rCommand.setImage(boxedByte);
 
-        when(recipeService.findCommandById(anyString())).thenReturn(rCommand);
+        when(recipeService.findCommandById(anyString())).thenReturn(Mono.just(rCommand));
 
         // when
         MockHttpServletResponse mServletResponse = mockMvc.perform(get("/recipe/1/recipeimage"))
