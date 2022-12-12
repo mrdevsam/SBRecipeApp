@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ import app.sbrecipeapp.services.IngredientService;
 import app.sbrecipeapp.services.RecipeService;
 import app.sbrecipeapp.services.UnitOfMeasureService;
 
+@Disabled
 public class IngredientControllerTest {
 
     IngredientController controller;

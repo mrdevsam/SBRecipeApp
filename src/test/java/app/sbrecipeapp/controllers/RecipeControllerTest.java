@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.exceptions.NotFoundException;
 import app.sbrecipeapp.services.RecipeService;
 
+@Disabled
 public class RecipeControllerTest {
 
     RecipeController controller;

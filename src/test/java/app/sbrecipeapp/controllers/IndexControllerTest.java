@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -26,6 +27,7 @@ import reactor.core.publisher.Flux;
 import app.sbrecipeapp.domain.Recipe;
 import app.sbrecipeapp.services.RecipeService;
 
+@Disabled
 public class IndexControllerTest {
     IndexController iController;
 
