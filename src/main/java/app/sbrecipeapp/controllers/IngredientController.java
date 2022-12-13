@@ -2,11 +2,9 @@ package app.sbrecipeapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.validation.BindingResult;
 
 import app.sbrecipeapp.commands.IngredientCommand;
 import app.sbrecipeapp.commands.RecipeCommand;
@@ -23,6 +21,7 @@ public class IngredientController {
     private final RecipeService rService;
     private final IngredientService iService;
     private final UnitOfMeasureService uService;
+    private WebDataBinder webDataBinder;
 
     public IngredientController(RecipeService rService, IngredientService iService, UnitOfMeasureService uService) {
         this.rService = rService;
@@ -30,6 +29,11 @@ public class IngredientController {
         this.uService = uService;
     }
 
+    @InitBinder("ingredient")
+    public void initBinder(WebDataBinder webDataBinder) {
+    	this.webDataBinder = webDataBinder;
+    }
+    
     @GetMapping("/recipe/{recipeId}/ingredients")
     public String listIngredients(@PathVariable String recipeId, Model model) {
         log.debug("Getting ingredient for recipeId: " + recipeId);
@@ -52,15 +56,27 @@ public class IngredientController {
     public String updateRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
 
         model.addAttribute("ingredient",
-                iService.findByRecipeIdAndIngredientId(String.valueOf(recipeId), String.valueOf(id)).block());
+                iService.findByRecipeIdAndIngredientId(String.valueOf(recipeId), String.valueOf(id)));
         model.addAttribute("uomList", uService.listAllUoms());
 
         return "recipe/ingredient/ingredientForm";
     }
 
     @PostMapping("recipe/{recipeId}/ingredient")
-    public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand) {
+    public String saveOrUpdate(@ModelAttribute("ingredient") IngredientCommand ingredientCommand, Model model) {
 
+    	webDataBinder.validate();
+    	BindingResult bindingResult = webDataBinder.getBindingResult();
+    	
+    	if(bindingResult.hasErrors()){
+    		bindingResult.getAllErrors().forEach(objectError -> {
+    	    log.debug(objectError.toString());
+    	    });
+    	
+    	    model.addAttribute("uomList", uService.listAllUoms());
+    	    return "recipe/ingredient/ingredientForm";
+    	}
+    	        
         IngredientCommand savedCommand = iService.saveIngredientCommand(ingredientCommand).block();
 
         //log.debug("saved receipe id:" + savedCommand.getRecipeId());
